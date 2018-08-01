@@ -1106,14 +1106,79 @@
 #
 #     wget.download(i,out='/tmp/images/'+x)
 
-
+# import smtplib
 # from	email.mime.text	import	MIMEText
 # from	email.header	import	Header
-# message	=	MIMEText('Python	邮件发送测试...',	'plain',	'uG-8')
-# message['From']	=	Header("zzg",	'utf-8')			#	发送者
-# message['To']	=		Header("root",	'utf-8')								#	接收者
-# subject	=	'Python	SMTP	邮件测试'
+#
+# message	=MIMEText('Python	邮件发送测试...\n',	'plain',	'utf-8')
+# message['From']=Header("raozhile@163.com",'utf-8')
+# message['To']=Header("raozhile@163.com",'utf-8')
+# message['Subject']=Header('邮件测试','utf-8')
+#
 # mail_host='smtp.163.com'
 # mail_user='raozhile@163.com'
 # mail_pass='4221828sbsb'
-# smtp_obj	=	smtplib.SMTP()
+# sender='raozhile@163.com'
+# receivers=['raozhile@163.com']
+# smtp_obj=smtplib.SMTP()
+# smtp_obj.connect(mail_host)
+# smtp_obj.login(mail_user,mail_pass)
+# smtp_obj.sendmail(sender,receivers,message.as_string())
+# import requests
+# import wget
+# import os
+# import hashlib
+# import tarfile
+#
+# def get_pack_url(version):
+#     version_url='http://127.0.0.1/deploy/%s_version' % version
+#     r=requests.get(version_url)
+#     ver=r.text.strip()
+#     url='http://127.0.0.1/deploy/packages/wpress_%s.tar.gz' % ver
+#     return url
+#
+# def download(url):
+#     file_url='/var/tmp/'+url.split('/')[-1]
+#     wget.download(url,out=file_url)
+#     return file_url
+#
+# def check_package(fname):
+#     m=hashlib.md5()
+#     with open(fname, 'rb') as f:
+#         data=f.read()
+#         m.update(data)
+#         local_md5=m.hexdigest()
+#     url='http://127.0.0.1/deploy/packages/'+fname.split('/')[-1]+'.md5'
+#     r=requests.get(url)
+#     remote_md5=r.text.strip()
+#     if local_md5==remote_md5:
+#         return True
+#     return False
+#
+# def deploy(fname):
+#     web_root='/var/www/html'
+#     os.chdir(web_root)
+#     tar=tarfile.open(fname,'r:gz')
+#     tar.extractall()
+#     tar.close()
+#
+# if __name__ == '__main__':
+#     prompt='''(0) 旧版本
+# (1) 最新版本
+# 请选择(0/1):
+# '''
+#     choice=input(prompt)
+#     if choice=='0':
+#         version='live'
+#     elif choice=='1':
+#         version='last'
+#     url=get_pack_url(version)
+#     fname=download(url)
+#     fileok=check_package(fname)
+#     if fileok:
+#         deploy(fname)
+#     else:
+#         print('下载的文件已损坏,请重新下载!')
+
+
+

@@ -81,30 +81,30 @@ import string
 import threading
 
 
-def remote_comm(host,pwd,command):
-
-    ssh=paramiko.SSHClient()
-    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(
-        hostname=host,
-        username='root',
-        password=pwd
-
-    )
-    a=ssh.exec_command(command)
-    out=a[1].read()
-    error=a[2].read()
-    if out:
-        print(out.decode('utf8'))
-    if error:
-        print(error.decode('utf8'))
-
-if __name__ == '__main__':
-    filename=input('filname')
-    command=input('command')
-    pwd=getpass.getpass()
-    with open(filename) as f:
-        ips=[line.strip() for line in f]
-    for ip in ips:
-        t=threading.Thread(target=remote_comm,args=(ip,pwd,command))
-        t.start()
+# def remote_comm(host,pwd,command):
+#
+#     ssh=paramiko.SSHClient()
+#     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+#     ssh.connect(
+#         hostname=host,
+#         username='root',
+#         password=pwd
+#
+#     )
+#     a=ssh.exec_command(command)
+#     out=a[1].read()
+#     error=a[2].read()
+#     if out:
+#         print(out.decode('utf8'))
+#     if error:
+#         print(error.decode('utf8'))
+#
+# if __name__ == '__main__':
+#     filename=input('filname')
+#     command=input('command')
+#     pwd=getpass.getpass()
+#     with open(filename) as f:
+#         ips=[line.strip() for line in f]
+#     for ip in ips:
+#         t=threading.Thread(target=remote_comm,args=(ip,pwd,command))
+#         t.start()
