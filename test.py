@@ -1129,13 +1129,24 @@
 # import os
 # import hashlib
 # import tarfile
+# import re
 #
 # def get_pack_url(version):
-#     version_url='http://127.0.0.1/deploy/%s_version' % version
-#     r=requests.get(version_url)
-#     ver=r.text.strip()
-#     url='http://127.0.0.1/deploy/packages/wpress_%s.tar.gz' % ver
+#     # version_url='http://127.0.0.1/deploy/%s_version' % version
+#     # r=requests.get(version_url)
+#     # ver=r.text.strip()
+#     url='http://127.0.0.1/deploy/packages/wpress_%s.tar.gz' % version
 #     return url
+#
+# def get_all_version():
+#
+#     version_url = 'http://127.0.0.1/deploy/version'
+#     r = requests.get(version_url)
+#     ver = r.text
+#     x=re.findall('v[\.0-9]*',ver)
+#     return x
+#
+#
 #
 # def download(url):
 #     file_url='/var/tmp/'+url.split('/')[-1]
@@ -1162,23 +1173,119 @@
 #     tar.extractall()
 #     tar.close()
 #
+# def show_version(list1):
+#     for i in range( len( list1)):
+#         print('(%s) %s' % (i,list1[i] ))
+#
+#
 # if __name__ == '__main__':
-#     prompt='''(0) 旧版本
-# (1) 最新版本
-# 请选择(0/1):
-# '''
-#     choice=input(prompt)
-#     if choice=='0':
-#         version='live'
-#     elif choice=='1':
-#         version='last'
-#     url=get_pack_url(version)
+#     list_version=get_all_version()
+#     show_version(list_version)
+#
+#     choice=input('请选择你要发布的版本:\n')
+#     if choice not in list_version:
+#         print('输入有误，请重新输入！\n')
+#         exit()
+#
+#     url=get_pack_url(choice)
 #     fname=download(url)
 #     fileok=check_package(fname)
 #     if fileok:
 #         deploy(fname)
+#         print('已发布成功！')
 #     else:
 #         print('下载的文件已损坏,请重新下载!')
+#
+
+
+# from collections import namedtuple
+# 
+# 
+# user=namedtuple('user',['name','age'])
+# bob=user('bob',23)
+# print(bob[0])
+# print(bob.name)
+
+
+# import os
+# import time
+#
+# while 1:
+#     x=os.popen('dmesg').read()
+#     print(x,end='',flush=True)
+#     time.sleep(1)
+#
+# import os
+# import requests
+# import hashlib
+# import sys
+# import time
+# import json
+
+# url='http://127.0.0.1/api_jsonrpc.php'
+# headers={'Content-Type':'application/json-rpc'}
+# data={
+#     "jsonrpc": "2.0",
+#     "method": "host.create",
+#     "params": {
+#         "host":"python test",
+#         "interfaces": [
+#             {
+#                 "type": 1,
+#                 "main": 1,
+#                 "useip": 1,
+#                 "ip": "192.168.4.2",
+#                 "dns": "192.168.4.5",
+#                 "port": "10050"
+#             }
+#         ],
+#         "groups": [
+#             {
+#                 "groupid": "2"
+#             }
+#         ],
+#
+#     },
+#     "auth": "15c3ad929e5aa1f4f93ab96b7b4034d5",
+#     "id":1
+# }
+#
+# r=requests.post(url,headers=headers,data=json.dumps(data))
+# print(r.json())
+# import urllib.request
+# import http.cookiejar
+# import urllib.parse
+# from urllib.request import urlopen
+# from lxml import html
+# import requests
+#
+# session_requests = requests.session()
+# url ='http://uc.tmooc.cn/login/jumpTologin'
+# agent='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/60.0.3112.113 Chrome/60.0.3112.113 Safari/537.36'
+#
+#
+# cookie=http.cookiejar.CookieJar()
+# opener=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie))
+#
+# headers = {'User-Agent':agent}
+# postdata=urllib.parse.urlencode({'loginName':'754082556@qq.com','password':'06385434'})
+# postdata=postdata.encode('UTF-8')
+#
+# request=urllib.request.Request(url,postdata,headers)
+# # result=opener.open(request)
+# # print(result.read().decode('UTF-8'))
+#
+# url1='http://tts.tmooc.cn/ttsPage/LINUX/NSDTN201801/SECURITY/DAY06/CASE/01/index.html#case5'
+# # r=requests.post(url,data='754082556@qq.com' '06385434',)
+# # r.encoding='utf8'
+# # print(r.text)
+# # r=requests.get(url1)
+# # r.encoding='utf8'
+# request=urllib.request.Request(url1)
+# result=opener.open(request)
+# print(result.read().decode('UTF-8'))
+
+
 
 
 
