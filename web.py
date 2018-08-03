@@ -1,3 +1,4 @@
+#!/usr/local/python/bin/python3.7
 #-*-coding:utf-8-*-
 import pymysql
 import os
@@ -5,6 +6,9 @@ import hashlib
 import pickle
 import re
 import time
+import cgi
+import cgitb
+from django.shortcuts import render, HttpResponse
 
 def update_pass():
     name=input('请输入用户名:\n')
@@ -38,9 +42,9 @@ def use_db(sql):
     db.close()
     return re
 
-def register():
-    name = input('请输入用户名:\n')
-    passwd = input('请输入密码:\n')
+def register(name,passwd):
+    # name = input('请输入用户名:\n')
+    # passwd = input('请输入密码:\n')
     sql = "select * from person  where name='%s' " % name
     re = use_db(sql)
     if re:
@@ -79,19 +83,19 @@ def cp(filea,fileb):
             tmp=f.read()
             d.write(tmp)
 
-if __name__ == '__main__':
-    while 1:
-        prompt = '''(0): 登陆
-    (1): 修改信息
-    (2): 注册
-    (3): 退出
-    '''
-        inputs=input(prompt)
-        if inputs=='3':
-            print('再见！')
-            exit()
-        cmds = {'0': login, '1': update_pass,'2':register}
-        cmds[inputs]()
+# if __name__ == '__main__':
+    # while 1:
+    #     prompt = '''(0): 登陆
+    # (1): 修改信息
+    # (2): 注册
+    # (3): 退出
+    # '''
+    #     inputs=input(prompt)
+    #     if inputs=='3':
+    #         print('再见！')
+    #         exit()
+    #     cmds = {'0': login, '1': update_pass,'2':register}
+    #     cmds[inputs]()
 
 # print( md5sum('/tmp/passwd'))
 #print(find('/tmp/new'))
@@ -123,3 +127,8 @@ if __name__ == '__main__':
 #                 cp(i,m)
 #         with open('/tmp/record', 'wb') as d:
 #             pickle.dump(dir2,d)
+    form=cgi.FieldStorage()
+    name=form.getvalue('name')
+    password=form.getvalue('password')
+    register(name,password)
+
