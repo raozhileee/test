@@ -1286,6 +1286,36 @@
 # print(result.read().decode('UTF-8'))
 
 
+# import requests
+# from lxml import html
+#
+# payload = {
+#     "loginName":"754082556@qq.com",
+#     "password": "9cd9064c505783df1720c9b16875526e",
+#     "imgCode":"",
+#     "accountType":"1"
+# }
+#
+# session_requests = requests.session()
+# login_url ='http://uc.tmooc.cn/login/jumpTologin'
+# result = session_requests.get(login_url)
+#
+# tree = html.fromstring(result.text)
+# # authenticity_token = list(set(tree.xpath("//input[@name='csrfmiddlewaretoken']/@value")))[0]
+#
+# result = session_requests.post(
+#     login_url,
+#     data = payload,
+#     headers = dict(referer=login_url)
+# )
+#
+# url = 'http://tts.tmooc.cn/studentCenter/toMyttsPage'
+# result = session_requests.get(
+#     url,
+#     headers = dict(referer = url)
+# )
+# result.encoding='utf8'
+# print(result.text)
 
-
+import djan
 

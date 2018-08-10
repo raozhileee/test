@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>hello</title>
+    <link rel="stylesheet" href="./bootstrap.min.css">
+
+</head>
+<body>
+<form action="/polls/vote1/"method="post">
+    {% csrf_token %}
+    {% for qq in q  %}
+
+
+
+        <label for="">{{ qq.id }}：{{ qq.question_text }}</label>
+        <br>
+
+    {% for c in qq.choice_set.all %}
+        <label>
+            <input type="radio" name="choice{{ qq.id }}" value="{{ c.id }}">{{c.choice_text }}
+        </label>
+    {% endfor %}
+
+
+        <br>
+    {% endfor %}
+
+
+    <input class="btn btn-info" type="submit" value="提交">
+
+
+
+</form>
+
+
+</body>
+</html>

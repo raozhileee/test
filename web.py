@@ -9,6 +9,7 @@ import time
 import cgi
 import cgitb
 from django.shortcuts import render, HttpResponse
+from	django.shortcuts	import	render,	get_object_or_404,redirect
 
 def update_pass():
     name=input('请输入用户名:\n')
@@ -23,15 +24,26 @@ def update_pass():
         print("修改数据库失败!")
         raise;
 
-def login():
-    name = input('请输入用户名:\n')
-    passwd = input('请输入密码:\n')
+def login(name,passwd):
+    # name = input('请输入用户名:\n')
+    # passwd = input('请输入密码:\n')
     sql="select * from person  where name='%s' and password='%s'" % (name,passwd)
     re=use_db(sql)
     if re:
-        print('登陆成功!')
+        return 1;
+        # print('登陆成功!')
     else:
-        print('用户名或密码错误！')
+        return 0;
+        # print('用户名或密码错误！')
+def login1(request):
+    username=request.POST.get('username')
+    password = request.POST.get('password')
+    x=login(username,password)
+    if x:
+        return HttpResponse('登陆成功！')
+    else:
+        return HttpResponse('用户名或密码错误')
+
 
 def use_db(sql):
     db = pymysql.connect(host="localhost", user="root", password="123456", db="db1", port=3306)
